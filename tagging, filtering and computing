@@ -1,0 +1,44 @@
+#tagging the users first transaction 
+firsttrx = df.groupby('CUSTOMER_ID')['CREATED_DATE'].min().reset_index()
+
+df = df.merge(firsttrx, 
+              how="left",
+              left_on = ['CUSTOMER_ID','CREATED_DATE'],
+              right_on =['CUSTOMER_ID','CREATED_DATE'],
+              ) ## merging the the to the main df
+
+#tagging the df 
+conditions = [
+    (df['TRX_TYPE'] == 20),
+    (df['SUBSCRIBE'] == 'yes')
+]
+
+choices = ['Redemption', 'Subscription']
+moneymdf2['TRX_TYPE_2'] = np.select(conditions, choices, default ='Topup')
+
+
+#computing net amount by inv_account 
+df_net = df.pivot_table (index = 'INV_ACCOUNT_ID', 
+                        columns = 'TRANSACTION', 
+                        values = 'TRX_AMOUNT', 
+                        aggfunc = 'sum')
+df_net = df_net.reset_index()
+df_net.fillna(0, inplace=True)
+df_net['NET'] = (df_net['Subscription'] + df_net['Top']) - df_net['Redemption']
+
+
+
+#filter df using .query()
+df_null = df.query('Subscription!=Subscription') # filtering rows with NaN value in that column 
+df_inflow_trx = df.query('TRANSACTION in ["Subscription","Top"]  #filtering dataframe based on specific values of a column 
+df.query('Redemption == 0 & Top == 0') #filtering based specific values of multiple columns 
+df = df.query('TRANSACTION in ["Top"] & MIN_AMOUNT == 1000') #filtering by string and int, multiple columns 
+
+
+#filtering df to create new df
+grp_1_list = group1['INV_ACCOUNT_ID'].to_list()
+df_grp1 = df[df.INV_ACCOUNT_ID.isin(grp_1_list)] # dataframe that only group 1 consumer transactions 
+df_exgrp1 = df[~df.INV_ACCOUNT_ID.isin(grp_1_list)] # dataframe that EXCLUDES group 1 consumer transactions 
+
+
+
