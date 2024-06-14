@@ -1,0 +1,26 @@
+#loading files
+product1_18 = pd.read_csv('Product 2018.csv')
+product1_19q1 = pd.read_csv('Product 2019 1,2,3.csv')
+product1_19q2 = pd.read_csv('Product 2019 4,5,6.csv')
+product1_19q3 = pd.read_csv('Product 2019 7,8,9.csv')
+product1_19q4 = pd.read_csv('Product 2019 10,11,12.csv')
+product1_20q1 = pd.read_csv('Product 2020 1,2,3.csv')
+product1_20q2 = pd.read_csv('Product 2020 4,5,6.csv')
+product1_20q3 = pd.read_csv('Product 2020 7,8,9.csv')
+product1_20q4 = pd.read_csv('Product 2020 10,11,12.csv')
+product1_21q1 = pd.read_csv('Product 2021 1,2,3.csv')
+product1_21q2 = pd.read_csv('Product 2021 4,5,6.csv')
+product1_21q3 = pd.read_csv('Product 2021 7,8,9.csv')
+product1_21q4 = pd.read_csv('Product 2021 10,11,12.csv')
+product1_22q1 = pd.read_csv('Product 2022 1,2,3.csv')
+product1_22q2 = pd.read_csv('Product 2022 4,5,6.csv')
+product1_22q3 = pd.read_csv('Product 2022 7,8,9.csv')
+product1_22q4 = pd.read_csv('Product 2022 10,11,12.csv')
+product1_23q1 = pd.read_csv('Product 2023 1,2,3.csv')
+product1_23q2 = pd.read_csv('Product 2023 4,5,6.csv')
+product1_23q3 = pd.read_csv('Product 2023 7,8,9.csv')
+product1_23q4 = pd.read_csv('Product 2023 10,11,12.csv')
+
+# all files into one dataframe
+df = pd.concat([product1_18,product1_19q1,product1_19q2,product1_19q3,product1_19q4,product1_20q1,product1_20q2,product1_20q3,product1_20q4,product1_21q1,
+product1_21q1,product1_21q2,product1_21q3,product1_21q4,product1_22q1,product1_22q2,product1_22q3,product1_22q4,product1_23q1,product1_23q2,product1_23q4])
