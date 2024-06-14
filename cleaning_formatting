@@ -1,0 +1,32 @@
+#changing data types 
+df['TRX_DATE'] = pd.to_datetime(df['TRX_DATE'], errors = 'coerce')
+df['CUSTOMER_ID'] = df['CUSTOMER_ID'].astype("string")
+
+#adding columns using condition
+conditions = [
+    (df['PRODUCT_NAME']== 'UITF Fund A'),
+    (df['PRODUCT_NAME']== 'UITF Fund B'),
+    (df['PRODUCT_NAME']== 'UITF Fund C'), 
+    (df['PRODUCT_NAME']== 'UITF Fund D'), 
+    (df['PRODUCT_NAME']== 'UITF Fund E'), 
+    (df['PRODUCT_NAME']== 'UITF Fund F'), 
+    (df['PRODUCT_NAME']== 'UITF Fund G'),
+    (df['PRODUCT_NAME']== 'UITF Fund H'), 
+    (df['PRODUCT_NAME']== 'UITF Fund I'), 
+    (df['PRODUCT_NAME']== 'UITF Fund J'),
+    (df['PRODUCT_NAME']== 'UITF Fund K'),
+    
+]
+choices = ['Conservative', 'Aggressive', 'Moderate', 'Aggressive', 'Aggressive','Aggressive',
+          'Aggressive','Aggressive',' Aggressive','Moderately Aggressive','Moderately Aggressive']
+df['Risk_Classification'] = np.select(conditions,choices, default = -1)
+
+
+# adding columns for year and month 
+df['YEAR'] = pd.DatetimeIndex(df['TRX_DATE']).year
+df['MONTH'] = pd.DatetimeIndex(df['TRX_DATE']).month
+
+#replacing a specific item in a column 
+df['TRANSACTION'] = df['TRANSACTION'] .replace(['Topup'], 'Top')
+
+
