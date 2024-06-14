@@ -1,0 +1,19 @@
+#sampling different users and checking the our main system if all trx are in fact with we
+df.sample(n=20)
+
+# spot checks filter the df by user
+spot1 = df_group1[df_group1['CUSTOMER_ID'] == '74C123452639764521240B1CQWERTY'].sort_values('CREATED_DATE',ascending=True)
+
+
+#pivot table making sure the totals are consistent 
+df_trx=  df.pivot_table(index = 'CUSTOMER_ID',
+                        columns = 'TRANSACTION',
+                        values = 'COUNT',
+                        aggfunc= sum,
+                        margins=True)
+
+
+
+
+
+
