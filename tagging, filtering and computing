@@ -30,7 +30,7 @@ df_net['NET'] = (df_net['Subscription'] + df_net['Top']) - df_net['Redemption']
 
 #filter df using .query()
 df_null = df.query('Subscription!=Subscription') # filtering rows with NaN value in that column 
-df_inflow_trx = df.query('TRANSACTION in ["Subscription","Top"]  #filtering dataframe based on specific values of a column 
+df_inflow_trx = df.query('TRANSACTION in ["Subscription","Top"]')  #filtering dataframe based on specific values of a column 
 df.query('Redemption == 0 & Top == 0') #filtering based specific values of multiple columns 
 df = df.query('TRANSACTION in ["Top"] & MIN_AMOUNT == 1000') #filtering by string and int, multiple columns 
 
