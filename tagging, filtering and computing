@@ -40,5 +40,10 @@ grp_1_list = group1['INV_ACCOUNT_ID'].to_list()
 df_grp1 = df[df.INV_ACCOUNT_ID.isin(grp_1_list)] # dataframe that only group 1 consumer transactions 
 df_exgrp1 = df[~df.INV_ACCOUNT_ID.isin(grp_1_list)] # dataframe that EXCLUDES group 1 consumer transactions 
 
-
-
+#assigning age
+df.loc[df['AGE']< 18,'age_cohort'] = 'no age' 
+df.loc[df['AGE'].between (18,22),'age_cohort'] = '18-22'
+df.loc[df['AGE'].between (23,27),'age_cohort'] = '23-27'
+df.loc[df['AGE'].between (28,35),'age_cohort'] = '28-35'
+df.loc[df['AGE'].between (36,45),'age_cohort'] = '36-45'
+df.loc[df['AGE']> 45,'age_cohort'] = 'geater than 45'
