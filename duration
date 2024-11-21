@@ -1,0 +1,35 @@
+import pandas as pd 
+import os 
+import sys
+--Loading all CSV Files 
+for p in sys.path: print(p)
+folder_path = r'[INSERT PATH]'
+all_files = os.listdir(folder_path)
+csv_files = [f for f in all_files if f.endswith('.csv')]
+df_list =[]
+for csv in csv_files:
+    try:
+        file_path = os.path.join(folder_path,csv)
+        df = pd.read_csv(file_path)
+        df['filename'] = os.path.basename(csv) -- add filename column
+        df_list.append(df)
+    except pd.errors.EmptyDataError:
+        pass  
+
+  df1 = pd.concat(df_list, ignore_index=True)
+  df1['CHANNEL'] = df1['filename'].str.split("_").str[0]
+
+df1.loc[df1['DURATION']==0,'DURATION_RANGE'] = 'same_day'
+df1.loc[df1['DURATION'].between(1,30),'DURATION_RANGE'] = '1-30 days'
+df1.loc[df1['DURATION'].between(31,60),'DURATION_RANGE'] = '31-60 days'
+df1.loc[df1['DURATION'].between(61,90),'DURATION_RANGE'] = '61-90 days'
+df1.loc[df1['DURATION'].between(91,120),'DURATION_RANGE'] = '91-120 days'
+df1.loc[df1['DURATION'].between(121,150),'DURATION_RANGE'] = '121-150 days'
+df1.loc[df1['DURATION'].between(151,180),'DURATION_RANGE'] = '151-180 days'
+df1.loc[df1['DURATION'].between(181,210),'DURATION_RANGE'] = '181-210 days'
+df1.loc[df1['DURATION'].between(211,240),'DURATION_RANGE'] = '211-240 days'
+df1.loc[df1['DURATION'].between(241,270),'DURATION_RANGE'] = '241-270 days'
+df1.loc[df1['DURATION'].between(271,300),'DURATION_RANGE'] = '271-300 days'
+df1.loc[df1['DURATION'].between(301,330),'DURATION_RANGE'] = '301-330 days'
+df1.loc[df1['DURATION'].between(331,365),'DURATION_RANGE'] = '331-365 days'
+df1.loc[df1['DURATION']>365,'DURATION_RANGE'] = 'more than a year'
